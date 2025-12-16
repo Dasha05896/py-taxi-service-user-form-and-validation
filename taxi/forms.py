@@ -26,8 +26,6 @@ class DriverCreateForm(UserCreationForm):
             "first_name",
             "last_name",
             "license_number",
-            "password1",
-            "password2",
         )
 
 
