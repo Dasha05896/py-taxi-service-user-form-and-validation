@@ -15,6 +15,9 @@
       </tr>
     {% for driver in driver_list %}
       <tr>
+        <a href="{% url 'taxi:driver-create' %}" class="btn btn-primary mb-3">
+          Create driver
+        </a>
         <td>{{ driver.id }}</td>
         <td><a href="{{ driver.get_absolute_url }}">{{ driver.username }} {% if user == driver %} (Me){% endif %}</a></td>
         <td>{{ driver.first_name }}</td>
