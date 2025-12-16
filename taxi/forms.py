@@ -1,7 +1,11 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from taxi.models import Driver, Car
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import get_user_model
+from taxi.models import Car
 import re
+
+User = get_user_model()
 
 
 def validate_license_number(value):
@@ -12,27 +16,26 @@ def validate_license_number(value):
         )
 
 
-class DriverCreateForm(forms.ModelForm):
+class DriverCreateForm(UserCreationForm):
     license_number = forms.CharField(validators=[validate_license_number])
 
-    class Meta:
-        model = Driver
+    class Meta(UserCreationForm.Meta):
+        model = User
         fields = (
             "username",
-            "password",
             "first_name",
             "last_name",
             "license_number",
+            "password1",
+            "password2",
         )
-        widgets = {
-            "password": forms.PasswordInput(),
-        }
+
 
 class DriverLicenseUpdateForm(forms.ModelForm):
     license_number = forms.CharField(validators=[validate_license_number])
 
     class Meta:
-        model = Driver
+        model = User
         fields = ("license_number",)
 
 
